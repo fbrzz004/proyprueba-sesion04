@@ -4,6 +4,38 @@ const clave = document.querySelector('#clave');
 const mensaje = document.querySelector('#mensaje');
 const botonMostrar = document.querySelector('#mostrar-clave');
 
+const CORREO_VALIDO = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+const LONGITUD_MINIMA_CLAVE = 8;
+
+function mostrarMensaje(texto, tipo) {
+    mensaje.textContent = texto;
+    mensaje.classList.remove('error', 'exito');
+    mensaje.classList.add(tipo);
+}
+
+function marcarCampo(campo, tieneError) {
+    campo.setAttribute('aria-invalid', tieneError ? 'true' : 'false');
+}
+
+function validarCorreo() {
+    const valor = correo.value.trim();
+    const error = valor === ''
+        ? 'El correo no puede quedar vacío.'
+        : !CORREO_VALIDO.test(valor)
+            ? 'El correo no tiene un formato válido.'
+            : '';
+    marcarCampo(correo, error !== '');
+    return error;
+}
+
+function validarClave() {
+    const error = clave.value.length < LONGITUD_MINIMA_CLAVE
+        ? `La contraseña debe tener al menos ${LONGITUD_MINIMA_CLAVE} caracteres.`
+        : '';
+    marcarCampo(clave, error !== '');
+    return error;
+}
+
 botonMostrar.addEventListener('click', () => {
     const visible = clave.type === 'text';
     clave.type = visible ? 'password' : 'text';
@@ -14,16 +46,32 @@ botonMostrar.addEventListener('click', () => {
 formulario.addEventListener('submit', (evento) => {
     evento.preventDefault();
 
-    if (correo.value === '' || clave.value === '') {
-        mensaje.textContent = 'Complete todos los campos.';
+    const errorCorreo = validarCorreo();
+    const errorClave = validarClave();
+
+    if (errorCorreo !== '') {
+        mostrarMensaje(errorCorreo, 'error');
+        correo.focus();
         return;
     }
 
-    if (clave.value.length < 6) {
-        mensaje.textContent = 'La contraseña debe tener al menos 6 caracteres.';
+    if (errorClave !== '') {
+        mostrarMensaje(errorClave, 'error');
+        clave.focus();
         return;
     }
 
-    mensaje.textContent = 'Acceso de demostración correcto.';
-    formulario.reset();
+    mostrarMensaje('Acceso de demostración correcto.', 'exito');
+});
+
+correo.addEventListener('input', () => {
+    if (correo.getAttribute('aria-invalid') === 'true') {
+        marcarCampo(correo, false);
+    }
+});
+
+clave.addEventListener('input', () => {
+    if (clave.getAttribute('aria-invalid') === 'true') {
+        marcarCampo(clave, false);
+    }
 });
