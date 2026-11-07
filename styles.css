@@ -2,12 +2,25 @@
     box-sizing: border-box;
 }
 
+:root {
+    --fondo: #eef2f7;
+    --superficie: #ffffff;
+    --texto: #1f2937;
+    --texto-suave: #52606d;
+    --borde: #cbd5e1;
+    --primario: #1d4ed8;
+    --primario-oscuro: #1e40af;
+    --foco: #f59e0b;
+    --error: #b91c1c;
+}
+
 body {
     margin: 0;
     min-height: 100vh;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #eef2f7;
-    color: #1f2937;
+    font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+    background: linear-gradient(135deg, #eef2f7 0%, #dbeafe 100%);
+    color: var(--texto);
+    line-height: 1.5;
 }
 
 .contenedor {
@@ -20,16 +33,29 @@ body {
 
 .tarjeta-login {
     width: 100%;
-    max-width: 400px;
-    padding: 32px;
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(15, 23, 42, 0.12);
+    max-width: 420px;
+    padding: 36px;
+    background: var(--superficie);
+    border: 1px solid #dbe3ee;
+    border-radius: 16px;
+    box-shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
 }
 
 h1 {
-    margin: 0 0 24px;
-    font-size: 28px;
+    margin: 0 0 8px;
+    font-size: 30px;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.ayuda {
+    margin: 0 0 8px;
+    color: var(--texto-suave);
+    font-size: 14px;
+}
+
+#ayuda-login {
+    margin-bottom: 24px;
     text-align: center;
 }
 
@@ -40,15 +66,23 @@ h1 {
 label {
     display: block;
     margin-bottom: 6px;
-    font-weight: bold;
+    font-weight: 700;
 }
 
 input {
     width: 100%;
-    padding: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    padding: 11px 12px;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
+    background: #ffffff;
+    color: var(--texto);
     font-size: 16px;
+}
+
+input:focus-visible {
+    border-color: var(--primario);
+    outline: 3px solid var(--foco);
+    outline-offset: 2px;
 }
 
 .grupo-clave {
@@ -58,29 +92,88 @@ input {
 
 .grupo-clave input {
     flex: 1;
+    min-width: 0;
 }
 
 #mostrar-clave {
-    padding: 0 12px;
-    border: 1px solid #cbd5e1;
-    border-radius: 6px;
+    padding: 0 14px;
+    border: 1px solid var(--borde);
+    border-radius: 8px;
     background: #f8fafc;
+    color: var(--texto);
+    font-size: 14px;
     cursor: pointer;
+}
+
+#mostrar-clave:hover {
+    background: #e2e8f0;
+}
+
+#mostrar-clave:focus-visible,
+.boton-ingresar:focus-visible {
+    outline: 3px solid var(--foco);
+    outline-offset: 2px;
 }
 
 .boton-ingresar {
     width: 100%;
-    padding: 12px;
+    padding: 13px;
     border: 0;
-    border-radius: 6px;
-    background: #2563eb;
+    border-radius: 8px;
+    background: var(--primario);
     color: #ffffff;
     font-size: 16px;
+    font-weight: 700;
     cursor: pointer;
 }
 
+.boton-ingresar:hover {
+    background: var(--primario-oscuro);
+}
+
 #mensaje {
-    min-height: 20px;
+    min-height: 22px;
     margin: 16px 0 0;
     text-align: center;
+}
+
+#mensaje.error {
+    color: var(--error);
+    font-weight: 700;
+}
+
+#mensaje.exito {
+    color: #15803d;
+    font-weight: 700;
+}
+
+.nota {
+    margin: 20px 0 0;
+    padding-top: 16px;
+    border-top: 1px solid #e2e8f0;
+    color: var(--texto-suave);
+    font-size: 12px;
+    text-align: center;
+}
+
+@media (max-width: 480px) {
+    .contenedor {
+        padding: 16px;
+    }
+
+    .tarjeta-login {
+        padding: 24px;
+    }
+
+    h1 {
+        font-size: 26px;
+    }
+
+    .grupo-clave {
+        flex-direction: column;
+    }
+
+    #mostrar-clave {
+        padding: 10px;
+    }
 }
