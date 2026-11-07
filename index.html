@@ -10,24 +10,31 @@
     <main class="contenedor">
         <section class="tarjeta-login" aria-labelledby="titulo-login">
             <h1 id="titulo-login">Iniciar sesión</h1>
+            <p class="ayuda" id="ayuda-login">Ingrese su correo y su contraseña para acceder al sistema de demostración.</p>
 
-            <form id="login-form" novalidate>
+            <form id="login-form" aria-describedby="ayuda-login" novalidate>
                 <div class="campo">
-                    <label for="correo">Correo</label>
-                    <input type="email" id="correo" name="correo" autocomplete="username" required>
+                    <label for="correo">Correo electrónico</label>
+                    <input type="email" id="correo" name="correo" autocomplete="username"
+                        aria-describedby="ayuda-correo" required>
+                    <p class="ayuda" id="ayuda-correo">Use el correo con el que fue registrado.</p>
                 </div>
 
                 <div class="campo">
                     <label for="clave">Contraseña</label>
                     <div class="grupo-clave">
-                        <input type="password" id="clave" name="clave" autocomplete="current-password" required>
+                        <input type="password" id="clave" name="clave" autocomplete="current-password"
+                            aria-describedby="ayuda-clave" required>
                         <button type="button" id="mostrar-clave" aria-label="Mostrar contraseña">Mostrar</button>
                     </div>
+                    <p class="ayuda" id="ayuda-clave">La contraseña debe tener al menos ocho caracteres.</p>
                 </div>
 
                 <button type="submit" class="boton-ingresar">Ingresar</button>
                 <p id="mensaje" role="status" aria-live="polite"></p>
             </form>
+
+            <p class="nota">Sitio de demostración. No ingrese contraseñas reales.</p>
         </section>
     </main>
 
